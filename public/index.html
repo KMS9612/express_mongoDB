@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+  </head>
+  <body>
+    <form class="myForm">
+      <input type="text" class="myInput" value="이름" />
+      <input type="text" class="myInput" value="email" />
+      <button type="submit">전송</button>
+    </form>
+  </body>
+  <script>
+    const form = document.querySelector(".myForm");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // 기본전송동작 방지
+
+      const formData = { name: "kms", email: "sss@sss.com" };
+
+      fetch("/users/createUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // 요청에 대한 응답 처리
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+  </script>
+</html>
